@@ -72,7 +72,7 @@
 
 > **🧞‍♀️ 깃허브 assignment 폴더의 DArt-B Sample Store.xls 파일을 다운받고 시트 중 '주문' 시트를 불러와주세요.**
 > 
-<img width="1920" height="1018" alt="image" src="https://github.com/user-attachments/assets/8aea7fe9-5d99-490f-82ee-57116f2da7be" />
+<img width="1344" height="237" alt="image" src="https://github.com/user-attachments/assets/e2f205f6-381c-4f04-8856-ba8409f94b89" />
 
 <!-- 문제와 문제 풀이가 모두 위 DArt-B Sample Store.xls 파일을 기반으로 제시되므로, 해당 엑셀파일을 사용하셔야 혼동이 없습니다. -->
 
