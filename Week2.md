@@ -50,17 +50,27 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+	user_id,
+    case
+    	WHEN register_device = 1 then '데스크톱'
+        when register_device = 2 then '스마트폰'
+        when register_device = 3 then '애플리케이션'
+        else ''
+        END as device_name
+from mst_users
 ```
 
-<!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
 
 ### 1-2 URL에서 요소 추출하기
 
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    stamp,
+    SUBSTRING_INDEX(SUBSTRING_INDEX(referrer,'/',3),'/',-1) AS ref
+    FROM access_log
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -70,7 +80,17 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    stamp,
+    url,
+    SUBSTRING_INDEX(
+        SUBSTRING_INDEX(
+            SUBSTRING_INDEX(url, '?', 1), '/', 4), '/', -1) AS path1,
+    SUBSTRING_INDEX(
+        SUBSTRING_INDEX(
+            SUBSTRING_INDEX(url, '?', 1), '/', 5), '/', -1) AS path2
+            
+FROM access_log;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -80,7 +100,10 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    SELECT
+    CURDATE() AS dt,
+    NOW() AS stamp;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -90,7 +113,14 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    purchase_id,
+    amount,
+    coupon,
+    amount - coupon AS discount_amount1,
+    amount - COALESCE(coupon, 0) AS discount_amount2
+FROM purchase_log_with_coupon
+;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -103,7 +133,10 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    user_id,
+    CONCAT(pref_name, ' ', city_name) AS pref_city
+FROM mst_user_location;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -113,7 +146,19 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    year,
+    q1,
+    q2,
+    CASE
+        WHEN q1 < q2 THEN '+'
+        WHEN q1 = q2 THEN '='
+        ELSE '-'
+    END AS judge_q1_q2,
+    q2 - q1 AS diff_q2_q1,
+    SIGN(q2 - q1) AS sign_q2_q1
+FROM quarterly_sales
+ORDER BY year;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -123,7 +168,14 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    dt,
+    ad_id,
+    clicks / impressions AS ctr,
+    100.0 * clicks / impressions AS ctr_as_percent
+FROM advertising_stats
+WHERE dt = '2017-04-01'
+ORDER BY dt, ad_id;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -133,7 +185,10 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    ABS(x1 - x2) AS abs,
+    SQRT(POWER(x1 - x2, 2)) AS rms
+FROM location_1d;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -143,7 +198,15 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    user_id,
+    register_stamp,
+    register_stamp + INTERVAL 1 HOUR AS after_1_hour,
+    register_stamp - INTERVAL 30 MINUTE AS before_30_minutes,
+    DATE(register_stamp) AS register_date,
+    DATE(register_stamp + INTERVAL 1 DAY) AS after_1_day,
+    DATE(register_stamp - INTERVAL 1 MONTH) AS before_1_month
+FROM mst_users_with_dates;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -153,7 +216,24 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    ip1,
+    ip2,
+    CASE
+        WHEN CONCAT(
+            SUBSTRING_INDEX( ip1, '.', 1 ), '.',
+            SUBSTRING_INDEX( SUBSTRING_INDEX( ip1, '.', 2 ), '.', -1 ), '.',
+            SUBSTRING_INDEX( SUBSTRING_INDEX( ip1, '.', 3 ), '.', -1 )
+        ) =
+        CONCAT(
+            SUBSTRING_INDEX( ip2, '.', 1 ), '.',
+            SUBSTRING_INDEX( SUBSTRING_INDEX( ip2, '.', 2 ), '.', -1 ), '.',
+            SUBSTRING_INDEX( SUBSTRING_INDEX( ip2, '.', 3 ), '.', -1 )
+        )
+        THEN 1
+        ELSE 0
+    END AS same_network_24
+FROM ip_pair;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -165,7 +245,15 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    COUNT(*) AS total_count,
+    COUNT(DISTINCT user_id) AS user_count,
+    COUNT(DISTINCT product_id) AS product_count,
+    SUM(score) AS sum,
+    AVG(score) AS avg,
+    MAX(score) AS max,
+    MIN(score) AS min
+FROM review;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -175,7 +263,17 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    user_id,
+    product_id,
+    score,
+    review_date,
+    ROW_NUMBER() OVER (
+        PARTITION BY user_id
+        ORDER BY review_date
+    ) AS row_num
+FROM review_with_dt
+ORDER BY user_id, row_num;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -185,7 +283,13 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    purchase_id,
+    GROUP_CONCAT(product_id ORDER BY product_id SEPARATOR ',') AS product_ids,
+    SUM(price) AS amount
+FROM purchase_detail_log
+GROUP BY purchase_id
+ORDER BY purchase_id;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -195,7 +299,23 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    l.purchase_id,
+    l.product_ids,
+    p.idx,
+    SUBSTRING_INDEX(
+        SUBSTRING_INDEX(l.product_ids, ',', p.idx),
+        ',',
+        -1
+    ) AS product_id
+FROM purchase_log AS l
+JOIN (
+    SELECT 1 AS idx
+    UNION ALL SELECT 2
+    UNION ALL SELECT 3
+) AS p
+    ON p.idx <= 1 + LENGTH(l.product_ids) - LENGTH(REPLACE(l.product_ids, ',', ''))
+ORDER BY l.purchase_id, p.idx;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -208,7 +328,21 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    'app1' AS app_name,
+    user_id,
+    name,
+    email
+FROM app1_mst_users
+
+UNION ALL
+
+SELECT
+    'app2' AS app_name,
+    user_id,
+    name,
+    email
+FROM app2_mst_users;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -218,7 +352,17 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+    m.category_id,
+    m.name,
+    s.sales,
+    r.product_id AS sale_product
+FROM mst_categories AS m
+JOIN category_sales AS s
+    ON m.category_id = s.category_id
+JOIN product_sale_ranking AS r
+    ON m.category_id = r.category_id
+ORDER BY m.category_id, r.rank_no;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -228,7 +372,27 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+SELECT
+SELECT
+    m.user_id,
+    m.card_number,
+    COUNT(p.user_id) AS purchase_count,
+
+    CASE
+        WHEN m.card_number IS NOT NULL THEN 1
+        ELSE 0
+    END AS has_card,
+
+    SIGN(COUNT(p.user_id)) AS has_purchased
+
+FROM mst_users_with_card_number AS m
+
+LEFT JOIN purchase_log AS p
+    ON m.user_id = p.user_id
+
+GROUP BY
+    m.user_id,
+    m.card_number;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -238,7 +402,19 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+WITH product_sale_ranking AS (
+    SELECT
+        category_name,
+        product_id,
+        sales,
+        ROW_NUMBER() OVER (
+            PARTITION BY category_name
+            ORDER BY sales DESC
+        ) AS rank_num
+    FROM product_sales
+)
+SELECT *
+FROM product_sale_ranking;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
@@ -248,7 +424,18 @@
 <!-- 이 부분을 지우고 새롭게 배운 내용을 자유롭게 정리해주세요. -->
 
 ```sql
-여기에 코드를 적어주세요.
+WITH mst_devices AS (
+
+    SELECT 1 AS device_id, 'PC' AS device_name
+    UNION ALL
+    SELECT 2 AS device_id, 'SP' AS device_name
+    UNION ALL
+    SELECT 3 AS device_id, '애플리케이션' AS device_name
+
+)
+
+SELECT *
+FROM mst_devices;
 ```
 
 <!-- 이 부분을 지우고 실행 결과 화면을 제출해주세요. -->
