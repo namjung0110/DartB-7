@@ -60,56 +60,71 @@
 
 ## 30. 계층
 
-<!-- 계층 구조와 관련된 개념, 사용 방법 등을 적어주세요. -->
-
+계층(Hierarchy)은 여러 차원을 하나의 그룹으로 묶어, 상위 → 하위 구조로 데이터를 탐색할 수 있게 해주는 기능이다.
+예를 들어 Region → State → City와 같이 구성하면, + 버튼을 통해 단계적으로 드릴다운 분석이 가능하다.
 
 
 ## 31. 집합
 
-<!-- 집합의 정의 및 활용 방법에 대해 알게 된 점을 적어주세요. -->
+계층(Hierarchy)은 여러 차원을 하나의 그룹으로 묶어, 상위 → 하위 구조로 데이터를 탐색할 수 있게 해주는 기능이다.
+예를 들어 Region → State → City와 같이 구성하면, + 버튼을 통해 단계적으로 드릴다운 분석이 가능하다.
 
-
+집합을 활용하면 특정 조건에 해당하는 데이터만 따로 분석하거나 비교할 수 있어, 필터보다 더 유연한 분석이 가능하다.
+<img width="1129" height="739" alt="image" src="https://github.com/user-attachments/assets/71cec01f-5f5b-4287-9230-3e6a862501a0" />
 
 ## 32. 결합집합
 
-<!-- 결합집합의 개념 및 사용 사례를 적어주세요. -->
+결합집합(Combined Set)은 두 개 이상의 집합을 논리적으로 결합하는 기능이다.
+AND(교집합), OR(합집합) 등의 방식으로 집합을 조합할 수 있다.
+예)
+매출 상위 20” AND “수익률 음수”를 결합하면
+매출은 높지만 손해를 보는 지역만 추출
+<img width="549" height="439" alt="image" src="https://github.com/user-attachments/assets/1bbadcad-9e2a-46b9-a9a6-a65765581e9c" />
 
 
 
 ## 33. 계산된 필드
 
-<!-- 계산된 필드를 사용하는 방법과 예시를 적어주세요. -->
+계산된 필드(Calculated Field)는 기존 데이터를 기반으로 새로운 값을 생성하는 기능이다.
+<img width="657" height="481" alt="image" src="https://github.com/user-attachments/assets/9e940950-8156-4350-85df-50a25398e812" />
 
 
 
 ## 34. 행수준계산
 
-<!-- 행수준 계산의 의미와 적용 방법을 적어주세요. -->
+행 수준 계산(Row-level Calculation)은 데이터의 각 행 단위에서 수행되는 계산이다.
+
+데이터가 집계되기 전에 계산되며, 개별 데이터의 특성을 반영하는 데 적합하다.
+<img width="487" height="348" alt="image" src="https://github.com/user-attachments/assets/9b846188-36c9-4006-9e77-ba6631045ebc" />
 
 
 
 ## 35. 집계계산
 
-<!-- 집계계산의 정의 및 활용 사례에 대해 알게 된 점을 적어주세요. -->
+집계 계산(Aggregate Calculation)은 여러 행의 데이터를 하나로 묶어 계산하는 방식이다.
+
+<img width="803" height="656" alt="image" src="https://github.com/user-attachments/assets/89094d83-3132-4a15-86be-f9fe77a91392" />
 
 
 
 ## 36. 테이블계산
 
-<!-- 테이블 계산의 개념 및 사용 방법을 적어주세요. -->
+테이블 계산(Table Calculation)은 이미 집계된 결과를 기반으로 추가 계산을 수행하는 방식이다
 
+<img width="502" height="309" alt="image" src="https://github.com/user-attachments/assets/4510bd24-3d3e-4146-8ec1-2ebf9285ffa1" />
 
 
 ## 37. 퀵테이블계산(1)
 
-<!-- 퀵테이블 계산의 원리 및 예제에 대해 알게 된 점을 적어주세요. -->
+퀵 테이블 계산(Quick Table Calculation)은 자주 사용하는 계산을 버튼 클릭만으로 적용할 수 있는 기능이다
 
+<img width="452" height="261" alt="image" src="https://github.com/user-attachments/assets/b4788477-02e0-46f2-911b-745e0fb662b4" />
 
 
 ## 38. 퀵테이블계산(2)
 
-<!-- 이동평균, YTD 총계, 전년 대비 성장률, YTD 성장률 등 본 강의에서 알게 된 점을 적어주세요. -->
-
+이동 평균, YTD 총계, 전년 대비 성장률 등 다양한 분석을 손쉽게 구현할 수 있다.
+따라서 계산 기준을 어떻게 설정하느냐가 매우 중요하다.
 
 
 # 확인문제
@@ -140,7 +155,7 @@
 
 
 ~~~
-여기에 답을 적어주세요! 
+DATEDIFF('day', [Order Date], [Ship Date])
 ~~~
 
 ![alt text](https://raw.githubusercontent.com/DArt-B-Official/07_Tableau_Template/main/images/Week3-2.png)
@@ -148,7 +163,10 @@
 >  **그런데 위 그림처럼 '주문 날짜'와 '배송 날짜'를 함께 행에 올려 확인해보니, 주문날짜와 배송날짜의 차이가 '배송까지 걸린 일수'와 다릅니다. ID-2021-11126을 보니, 11월 26일 배송에 11월 30일 배송이면 4일 차이인데, 12일이 걸렸다고 하네요. 왜 이런 문제가 생긴걸까요?**
 
 ~~~
-여기에 답을 적어주세요!
+주문 ID 기준이 아니라 행 단위로 계산되기 때문이다.
+
+즉, 하나의 주문(Order ID)이 여러 행으로 나뉘어 있을 경우
+각 행마다 DATEDIFF가 계산되고, 이후 집계 과정에서 값이 왜곡된다.
 ~~~
 
 
@@ -156,7 +174,7 @@
 > **그리고 이를 해결하기 위해서는 어떻게 해야할까요?**
 
 ~~~
-여기에 답을 적어주세요!
+
 ~~~
 
 
